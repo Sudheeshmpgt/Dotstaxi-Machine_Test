@@ -2,7 +2,7 @@ const VehicleModel = require("../model/vehicleShema");
 const { vehicleValidation } = require("../util/validationSchema");
 
 const newVehicle = async (req, res) => {
-  if (req.authVerified.role === "user") {
+  if (req.authVerified.roles === "user") {
     try {
       const { userId, vehicle_name, vehicle_number, vehicle_model } = req.body;
       const { error } = vehicleValidation(req.body);
@@ -37,7 +37,7 @@ const newVehicle = async (req, res) => {
 };
 
 const getAllVehicles = async (req, res) => {
-  if (req.authVerified.role === "user") {
+  if (req.authVerified.roles === "user") {
     try {
       const vehicles = await VehicleModel.find({ userId: req.params.id });
       if (vehicles) {
@@ -54,7 +54,7 @@ const getAllVehicles = async (req, res) => {
 };
 
 const getVehicle = async (req, res) => {
-  if (req.authVerified.role === "user") {
+  if (req.authVerified.roles === "user") {
     try {
       const vehicles = await VehicleModel.findById(req.params.id);
       if (vehicles) {
@@ -71,7 +71,7 @@ const getVehicle = async (req, res) => {
 };
 
 const updateVehicle = async (req, res) => {
-  if (req.authVerified.role === "user") {
+  if (req.authVerified.roles === "user") {
     try {
       const vehicle = await VehicleModel.findById(req.params.id);
       if (vehicle) {
@@ -98,7 +98,7 @@ const updateVehicle = async (req, res) => {
 };
 
 const deleteVehicle = async (req, res) => {
-  if (req.authVerified.role === "user") {
+  if (req.authVerified.roles === "user") {
     try {
       const vehicle = await VehicleModel.findByIdAndDelete(req.params.id);
       if (vehicle) {
