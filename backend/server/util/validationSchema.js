@@ -24,7 +24,7 @@ const validate = (data) => {
 const loginValidation = (data) => {
   const schema = joi.object({
     email: joi.string().email().required().label("Email"),
-    password: joi.allow()
+    password: joi.allow(),
   });
   return schema.validate(data);
 };
@@ -34,6 +34,16 @@ const refreshTokenValidation = (data) => {
     refreshToken: joi.string().required().label("Refresh Token"),
   });
   return schema.validate(data);
-}
+};
 
-module.exports = { validate, loginValidation, refreshTokenValidation };
+const vehicleValidation = (data) => {
+  const schema = joi.object({
+    vehicle_name: joi.string().required().label("Vehicle Name"),
+    vehicle_number: joi.string().required().label("Vehicle Number"),
+    vehicle_model: joi.string().required().label("Vehicle Model"),
+    userId: joi.allow(),
+  });
+  return schema.validate(data);
+};
+
+module.exports = { validate, loginValidation, refreshTokenValidation, vehicleValidation };

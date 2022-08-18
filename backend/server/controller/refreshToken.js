@@ -1,14 +1,13 @@
-
+require('dotenv').config()
 const UserToken = require("../model/userToken");   
 const jwt = require( "jsonwebtoken");
 const {verifyRefreshToken} = require( "../util/verifyRefreshToken");
 const { refreshTokenValidation } = require( "../util/validationSchema");
 
 
-// get new access token
 const getNewAccesstoken = async (req, res) => {
 	const { error } = refreshTokenValidation(req.body);
-	if (error) 
+	if (error)    
 		return res
 			.status(400)
 			.json({error: error.details[0].message });
@@ -18,7 +17,7 @@ const getNewAccesstoken = async (req, res) => {
 			const payload = { _id: tokenDetails._id, roles: tokenDetails.roles };
 			const accessToken = jwt.sign(
 				payload,
-				process.env.ACCESS_TOKEN_PRIVATE_KEY, 
+				process.env.ACCESS_TOKEN_KEY, 
 				{ expiresIn: "14m" }
 			);
 			res.status(200).json({
@@ -30,7 +29,7 @@ const getNewAccesstoken = async (req, res) => {
 		.catch((err) => res.status(400).send(err));
 };
 
-// logout
+
 const logout = async (req, res) => {
 	try {
 		const { error } = refreshTokenValidation(req.body);

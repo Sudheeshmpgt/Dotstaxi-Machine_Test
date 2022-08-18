@@ -12,23 +12,28 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import {useDispatch} from 'react-redux';
+  import {login} from '../redux/userData';
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const user = false;
+  const user = useSelector((state) => state.userData.value);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("usertoken");
+    const token = localStorage.getItem("token");
     setToken(token);
   }, []);
 
   const logout = () => {
     handleCloseUserMenu();
-    localStorage.removeItem("usertoken");
+    localStorage.removeItem("token");
+    dispatch(login({}))
     navigate("/");
   };
 
@@ -103,7 +108,7 @@ function Header() {
             >
               MyCab
             </Typography>
-            {!user ? (
+            {!token ? ( 
               <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "flex" } }}>
                 <Button
                   size="small"

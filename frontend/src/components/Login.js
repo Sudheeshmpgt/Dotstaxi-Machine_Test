@@ -39,25 +39,19 @@ import {
           dispatch(login(res.data.user))
           const message = res.data.message
           Toast.fire({
-                icon: "success",
-                title: message,    
-              });
+            icon: "success",
+            title: message,    
+          });
+          navigate('/home')
         })
         .catch(err=>{
-          console.log(err)
+          console.log(err)  
+          const message = err.response.data.error     
+          Toast.fire({
+                icon: "error",
+                title: message,
+              });
         })
-        // if (email) {
-        //   navigate("/dashboard");
-        //   Toast.fire({
-        //     icon: "success",
-        //     title: "Login Successfull ",
-        //   });
-        // } else {
-        //   Toast.fire({
-        //     icon: "error",
-        //     title: "User not registered",
-        //   });
-        // }
       } else {
         Toast.fire({
           icon: "warning",

@@ -1,8 +1,9 @@
+require("dotenv").config();
 const mongoose = require('mongoose');
 
 const Connect = async () => {
     try {
-        const con = await mongoose.connect("mongodb://localhost:27017/dotstaxi", {
+        const con = await mongoose.connect(process.env.MONGO_URI, {
             useUnifiedTopology: true,
         })
         console.log('MongoDB connected successfully')

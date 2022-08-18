@@ -12,6 +12,7 @@ require('./server/database/database')();
 
 app.use('/api/user', require('./server/router/userRouter'))
 app.use('/api/token', require('./server/router/accessTokenRoute')) 
+app.use('/api/vehicle', require('./server/router/vehicleRouter'))
 
 
 const server = app.listen(PORT, () => { 
