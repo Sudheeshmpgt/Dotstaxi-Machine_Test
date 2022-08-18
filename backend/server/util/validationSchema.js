@@ -1,4 +1,5 @@
 const joi = require("joi");
+const passwordComplexity = require("joi-password-complexity");
 
 const validate = (data) => {
   const schema = joi.object({
@@ -16,7 +17,15 @@ const validate = (data) => {
       .pattern(/^\d{10}$/)
       .required()
       .label("Phone"),
-    password: joi.allow(),
+    password: new passwordComplexity({
+      min: 8,
+      max: 25,
+      lowerCase: 1,
+      upperCase: 1,
+      numeric: 1,
+    })
+      .required()
+      .label("Password"),
   });
   return schema.validate(data);
 };
